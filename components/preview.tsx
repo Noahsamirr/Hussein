@@ -1,16 +1,22 @@
 'use client'
 
-import dynamic from 'next/dynamic'
-import { useMemo } from 'react'
-
-import 'react-quill/dist/quill.snow.css'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
 interface PreviewProps {
   value: string
 }
 
 export const Preview = ({ value }: PreviewProps) => {
-  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), [])
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: value,
+    editable: false,
+  })
 
-  return <ReactQuill theme="bubble" value={value} readOnly />
+  return (
+    <div className="prose prose-sm dark:prose-invert max-w-full">
+      <EditorContent editor={editor} />
+    </div>
+  )
 }

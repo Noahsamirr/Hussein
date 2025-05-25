@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
-import { useAuth } from '@clerk/nextjs'
+import { useAuth, UserButton } from '@clerk/nextjs'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 const routes = [
@@ -56,9 +56,7 @@ export const Header = () => {
         <div className="flex items-center space-x-4">
           <ThemeToggle />
           {isSignedIn ? (
-            <Button asChild>
-              <Link href="/dashboard">Go to Dashboard</Link>
-            </Button>
+            <UserButton afterSignOutUrl="/" />
           ) : (
             <>
               <Button asChild variant="ghost">
