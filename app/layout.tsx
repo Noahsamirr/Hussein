@@ -9,13 +9,17 @@ import { ThemeProvider } from '@/components/providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LMS (Learning Management System)',
-  description: 'LMS (Learning Management System)',
+  title: 'Hussein Abdurahman',
+  description: 'Hussein Abdurahman - Learning Platform',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider dynamic afterSignOutUrl="/">
+    <ClerkProvider 
+      afterSignInUrl="/dashboard"
+      afterSignUpUrl="/dashboard"
+      afterSignOutUrl="/"
+    >
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
