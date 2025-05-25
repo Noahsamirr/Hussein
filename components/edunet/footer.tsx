@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Logo from '@/components/logo'
 
 const footerLinks = [
   {
@@ -34,8 +35,7 @@ export const Footer = () => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="col-span-2">
             <Link href="/" className="flex items-center space-x-2">
-              <img src="/logo.svg" alt="Logo" className="h-8 w-8" />
-              <span className="text-xl font-bold">Hussein Abdulrahman</span>
+              <Logo />
             </Link>
             <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
               Empowering learners worldwide with quality education and practical skills.
@@ -63,7 +63,7 @@ export const Footer = () => {
         </div>
         <div className="mt-12 border-t border-gray-200 dark:border-gray-800 pt-8">
           <p className="text-center text-sm text-gray-600 dark:text-gray-300">
-            © {new Date().getFullYear()} Hussein Abdulrahman. All rights reserved.
+            © {new Date().getFullYear()} HA. All rights reserved.
           </p>
         </div>
       </div>

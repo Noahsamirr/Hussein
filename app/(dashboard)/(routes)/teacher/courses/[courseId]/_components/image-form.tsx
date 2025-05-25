@@ -42,10 +42,10 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   }
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
-      <div className="flex items-center justify-between font-medium">
+    <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Course image
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button onClick={toggleEdit} variant="ghost" className="dark:text-slate-400 dark:hover:bg-slate-700">
           {isEditing && <>Cancel</>}
           {!isEditing && !initialData.imageUrl && (
             <>
@@ -63,8 +63,8 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
       </div>
       {!isEditing &&
         (!initialData.imageUrl ? (
-          <div className="flex h-60 items-center justify-center rounded-md bg-slate-200">
-            <ImageIcon className="h-10 w-10 text-slate-500" />
+          <div className="flex h-60 items-center justify-center rounded-md bg-slate-200 dark:bg-slate-700">
+            <ImageIcon className="h-10 w-10 text-slate-500 dark:text-slate-400" />
           </div>
         ) : (
           <div className="relative mt-2 aspect-video">
@@ -81,7 +81,7 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
               }
             }}
           />
-          <div className="mt-4 text-xs text-muted-foreground">16:9 aspect ratio recommended</div>
+          <div className="mt-4 text-xs text-muted-foreground dark:text-slate-400">16:9 aspect ratio recommended</div>
         </div>
       )}
     </div>

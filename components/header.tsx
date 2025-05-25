@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { useAuth } from '@clerk/nextjs'
 import { motion } from 'framer-motion'
+import Logo from '@/components/logo'
 
 export const Header = () => {
   const { isSignedIn } = useAuth()
@@ -18,7 +19,8 @@ export const Header = () => {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+          <Logo />
+          <span className="text-xl font-bold text-slate-900 dark:text-slate-100 ml-2">
             Hussein Abdulrahman
           </span>
         </Link>

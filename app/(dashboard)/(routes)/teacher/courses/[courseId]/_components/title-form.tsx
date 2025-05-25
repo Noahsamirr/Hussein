@@ -51,8 +51,8 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   }
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
-      <div className="flex items-center justify-between font-medium">
+    <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Course title
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
@@ -65,7 +65,7 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
           )}
         </Button>
       </div>
-      {!isEditing && <p className="mt-2 text-sm">{initialData.title}</p>}
+      {!isEditing && <p className="mt-2 text-sm dark:text-slate-400">{initialData.title}</p>}
       {isEditing && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
@@ -75,14 +75,19 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input disabled={isSubmitting} placeholder="e.g. 'Advanced web development'" {...field} />
+                    <Input 
+                      disabled={isSubmitting} 
+                      placeholder="e.g. 'Advanced web development'" 
+                      {...field} 
+                      className="dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700"
+                    />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="dark:text-red-400" />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit">
+              <Button disabled={!isValid || isSubmitting} type="submit" className="dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300">
                 Save
               </Button>
             </div>

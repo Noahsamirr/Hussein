@@ -53,8 +53,8 @@ export const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps)
   }
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
-      <div className="flex items-center justify-between font-medium">
+    <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Course description
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
@@ -68,7 +68,11 @@ export const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps)
         </Button>
       </div>
       {!isEditing && (
-        <p className={cn('mt-2 text-sm', !initialData.description && 'italic text-slate-500')}>
+        <p className={cn(
+          'mt-2 text-sm',
+          !initialData.description && 'italic text-slate-500',
+          'dark:text-slate-400 dark:italic'
+        )}>
           {initialData.description || 'No description'}
         </p>
       )}
@@ -81,14 +85,19 @@ export const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps)
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea disabled={isSubmitting} placeholder="e.g. 'This course is about...'" {...field} />
+                    <Textarea 
+                      disabled={isSubmitting} 
+                      placeholder="e.g. 'This course is about...'" 
+                      {...field} 
+                      className="dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700"
+                    />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="dark:text-red-400" />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit">
+              <Button disabled={!isValid || isSubmitting} type="submit" className="dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300">
                 Save
               </Button>
             </div>

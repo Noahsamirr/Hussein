@@ -37,6 +37,8 @@ export const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) =
       router.refresh()
     } catch {
       toast.error('Something went wrong')
+    } finally {
+      setDeletingId(null)
     }
   }
 
@@ -54,10 +56,10 @@ export const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) =
   }
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
-      <div className="flex items-center justify-between font-medium">
+    <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Course attachments
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button onClick={toggleEdit} variant="ghost" className="dark:text-slate-400 dark:hover:bg-slate-700">
           {isEditing && <>Cancel</>}
           {!isEditing && (
             <>
@@ -70,24 +72,24 @@ export const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) =
       {!isEditing && (
         <>
           {initialData.attachments.length === 0 && (
-            <p className="mt-2 text-sm italic text-slate-500">No attachments yet</p>
+            <p className="mt-2 text-sm italic text-slate-500 dark:text-slate-400">No attachments yet</p>
           )}
           {initialData.attachments.length > 0 && (
             <div className="space-y-2">
               {initialData.attachments.map((attachment) => (
                 <div
                   key={attachment.id}
-                  className="flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700"
+                  className="flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700 dark:border-sky-700 dark:bg-sky-900 dark:text-sky-200"
                 >
-                  <File className="mr-2 h-4 w-4 flex-shrink-0" />
-                  <p className="line-clamp-1 text-xs">{attachment.name}</p>
+                  <File className="mr-2 h-4 w-4 flex-shrink-0 dark:text-sky-400" />
+                  <p className="line-clamp-1 text-xs dark:text-slate-200">{attachment.name}</p>
                   {deletingId === attachment.id && (
                     <div>
-                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <Loader2 className="h-4 w-4 animate-spin dark:text-slate-400" />
                     </div>
                   )}
                   {deletingId !== attachment.id && (
-                    <button onClick={() => onDelete(attachment.id)} className="ml-auto transition hover:opacity-75">
+                    <button onClick={() => onDelete(attachment.id)} className="ml-auto transition hover:opacity-75 dark:text-slate-400 dark:hover:text-red-500">
                       <X className="h-4 w-4" />
                     </button>
                   )}
@@ -107,7 +109,7 @@ export const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) =
               }
             }}
           />
-          <div className="mt-4 text-xs text-muted-foreground">
+          <div className="mt-4 text-xs text-muted-foreground dark:text-slate-400">
             Add anything your students might need to complete the course.
           </div>
         </div>

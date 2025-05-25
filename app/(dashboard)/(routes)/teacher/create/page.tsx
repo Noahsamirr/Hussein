@@ -1,79 +1,49 @@
-'use client'
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
+import { BookOpen, Sparkles } from 'lucide-react'
 
-import * as z from 'zod'
-import axios from 'axios'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import toast from 'react-hot-toast'
+import { db } from '@/lib/db'
+import { CourseForm } from './_components/course-form'
 
-import { Form, FormControl, FormDescription, FormField, FormLabel, FormMessage, FormItem } from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+const CreatePage = async () => {
+  const { userId } = await auth()
 
-const formSchema = z.object({
-  title: z.string().min(1, {
-    message: 'Title is required',
-  }),
-})
+  if (!userId) {
+    return redirect('/')
+  }
 
-const CreatePage = () => {
-  const router = useRouter()
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: '',
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: 'asc',
     },
   })
 
-  const { isSubmitting, isValid } = form.formState
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const response = await axios.post('/api/courses', values)
-      router.push(`/teacher/courses/${response.data.id}`)
-      toast.success('Course created')
-    } catch {
-      toast.error('Something went wrong')
-    }
-  }
-
   return (
-    <div className="mx-auto flex h-full max-w-5xl p-6 md:items-center md:justify-center">
-      <div>
-        <h1 className="text-2xl">Name your course</h1>
-        <p className="text-sm text-slate-600">
-          What would you like to name your course? Don&apos;t worry, you can change this later.
+    <div className="space-y-8 p-8">
+      {/* Welcome Section */}
+      <div className="flex flex-col space-y-4">
+        <div className="flex items-center gap-3">
+          <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+            Create New Course 🎯
+          </h1>
+          <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
+        </div>
+        <p className="text-lg text-muted-foreground">
+          Start your teaching journey by creating your first course
         </p>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-8">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Course title</FormLabel>
-                  <FormControl>
-                    <Input disabled={isSubmitting} placeholder="e.g. 'Advanced web development'" {...field} />
-                  </FormControl>
-                  <FormDescription>What will you teach in this course?</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex items-center gap-x-2">
-              <Link href="/">
-                <Button type="button" variant="ghost">
-                  Cancel
-                </Button>
-              </Link>
-              <Button type="submit" disabled={!isValid || isSubmitting}>
-                Continue
-              </Button>
-            </div>
-          </form>
-        </Form>
+      </div>
+
+      {/* Form Section */}
+      <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm dark:from-gray-800/50 dark:to-gray-800/30 shadow-lg">
+        <div className="flex items-center gap-x-2 mb-8">
+          <BookOpen className="h-8 w-8 text-indigo-500" />
+          <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+            Course Details
+          </h2>
+        </div>
+        <div className="max-w-3xl">
+          <CourseForm categories={categories} />
+        </div>
       </div>
     </div>
   )

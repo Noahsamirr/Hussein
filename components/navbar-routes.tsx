@@ -2,7 +2,7 @@
 
 import { UserButton, useAuth } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
-import { LogOut } from 'lucide-react'
+import { LogOut, BookOpen, Search } from 'lucide-react'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
@@ -12,7 +12,6 @@ import { ThemeToggle } from './theme-toggle'
 
 export const NavbarRoutes = () => {
   const { userId } = useAuth()
-
   const pathname = usePathname()
 
   const isTeacherPage = pathname?.startsWith('/teacher')
@@ -21,30 +20,31 @@ export const NavbarRoutes = () => {
   const isHomePage = pathname === '/'
 
   return (
-    <>
+    <div className="flex items-center gap-x-2 ml-auto">
       {isSearchPage && (
         <div className="hidden md:block">
           <SearchInput />
         </div>
       )}
-      <div className="ml-auto flex gap-x-2 items-center">
+      <div className="flex items-center gap-x-2">
         <ThemeToggle />
         {isTeacherPage || isCoursePage ? (
           <Link href="/">
-            <Button size="sm" variant="ghost">
-              <LogOut className="mr-2 h-4 w-4" />
+            <Button size="sm" variant="ghost" className="hover:bg-slate-200 dark:hover:bg-slate-800">
+              <LogOut className="h-4 w-4 mr-2" />
               Exit
             </Button>
           </Link>
         ) : isTeacher(userId) ? (
           <Link href="/teacher/courses">
-            <Button size="sm" variant="ghost">
+            <Button size="sm" variant="ghost" className="hover:bg-slate-200 dark:hover:bg-slate-800">
+              <BookOpen className="h-4 w-4 mr-2" />
               Teacher mode
             </Button>
           </Link>
         ) : null}
         {userId && <UserButton afterSignOutUrl="/" />}
       </div>
-    </>
+    </div>
   )
 }

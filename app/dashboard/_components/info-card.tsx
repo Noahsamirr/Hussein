@@ -3,11 +3,12 @@ import { cn } from '@/lib/utils'
 import { IconBadge } from '@/components/icon-badge'
 
 interface InfoCardProps {
-  numberOfItems: number
+  numberOfItems: number | string
   variant?: 'default' | 'success'
   label: string
   icon: LucideIcon
   className?: string
+  emoji?: string
 }
 
 export const InfoCard = ({ 
@@ -15,18 +16,22 @@ export const InfoCard = ({
   icon: Icon, 
   numberOfItems, 
   label,
-  className 
+  className,
+  emoji
 }: InfoCardProps) => {
   return (
     <div className={cn(
-      "flex items-center gap-x-2 rounded-md border p-3",
+      "flex items-center gap-x-3 rounded-xl border p-4 transition-all duration-300",
       className
     )}>
-      <IconBadge variant={variant} icon={Icon} />
+      <div className="flex items-center gap-x-2">
+        <IconBadge variant={variant} icon={Icon} />
+        {emoji && <span className="text-2xl">{emoji}</span>}
+      </div>
       <div>
-        <p className="font-medium">{label}</p>
-        <p className="text-sm text-gray-500">
-          {numberOfItems} {numberOfItems === 1 ? 'Course' : 'Courses'}
+        <p className="font-medium text-lg">{label}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          {numberOfItems} {typeof numberOfItems === 'number' ? (numberOfItems === 1 ? 'Course' : 'Courses') : ''}
         </p>
       </div>
     </div>

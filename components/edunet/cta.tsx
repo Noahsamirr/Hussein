@@ -10,7 +10,7 @@ export const CTA = () => {
             Ready to get started?
           </h2>
           <p className="mt-4 text-lg text-primary-foreground/80">
-            Join thousands of students who are already learning with Hussein Abdulrahman.
+            Join thousands of students who are already learning with HA.
           </p>
           <div className="mt-8 flex justify-center gap-4">
             <Button asChild size="lg" variant="secondary">

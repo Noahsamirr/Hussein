@@ -9,8 +9,8 @@ import { ThemeProvider } from '@/components/providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Hussein Abdurahman',
-  description: 'Hussein Abdurahman - Learning Platform',
+  title: 'HA Learning',
+  description: 'HA Learning Platform',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

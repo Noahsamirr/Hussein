@@ -75,15 +75,15 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
   }
 
   return (
-    <div className="relative mt-6 rounded-md border bg-slate-100 p-4">
+    <div className="relative mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
       {isUpdating && (
-        <div className="rounded-m absolute right-0 top-0 flex h-full w-full items-center justify-center bg-slate-500/20">
-          <Loader2 className="h-6 w-6 animate-spin text-sky-700" />
+        <div className="rounded-m absolute right-0 top-0 flex h-full w-full items-center justify-center bg-slate-500/20 dark:bg-slate-900/50">
+          <Loader2 className="h-6 w-6 animate-spin text-sky-700 dark:text-sky-400" />
         </div>
       )}
-      <div className="flex items-center justify-between font-medium">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Course chapters
-        <Button onClick={toggleCreating} variant="ghost">
+        <Button onClick={toggleCreating} variant="ghost" className="dark:text-slate-400 dark:hover:bg-slate-700">
           {isCreating ? (
             <>Cancel</>
           ) : (
@@ -103,25 +103,34 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input disabled={isSubmitting} placeholder="e.g. 'Introduction to the course'" {...field} />
+                    <Input 
+                      disabled={isSubmitting} 
+                      placeholder="e.g. 'Introduction to the course'" 
+                      {...field} 
+                      className="dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700"
+                    />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="dark:text-red-400" />
                 </FormItem>
               )}
             />
-            <Button disabled={!isValid || isSubmitting} type="submit">
+            <Button disabled={!isValid || isSubmitting} type="submit" className="dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300">
               Create
             </Button>
           </form>
         </Form>
       )}
       {!isCreating && (
-        <div className={cn('mt-2 text-sm', !initialData.chapters.length && 'italic text-slate-500')}>
+        <div className={cn(
+          'mt-2 text-sm',
+          !initialData.chapters.length && 'italic text-slate-500',
+          'dark:text-slate-400 dark:italic'
+        )}>
           {!initialData.chapters.length && 'No chapters'}
           <ChaptersList onEdit={onEdit} onReorder={onReorder} items={initialData.chapters || []} />
         </div>
       )}
-      {!isCreating && <p className="mt-4 text-xs text-muted-foreground">Drag and drop to reorder the chapters</p>}
+      {!isCreating && <p className="mt-4 text-xs text-muted-foreground dark:text-slate-400">Drag and drop to reorder the chapters</p>}
     </div>
   )
 }

@@ -6,8 +6,17 @@ import { Prisma } from '@prisma/client'
 
 export async function POST(request: NextRequest) {
   try {
+    // Test database connection first
+    try {
+      await db.$connect()
+      console.log('Database connection successful')
+    } catch (connectionError) {
+      console.error('Database connection failed:', connectionError)
+      return new NextResponse('Database connection failed', { status: 500 })
+    }
+
     const { userId } = await auth()
-    const { title } = await request.json()
+    console.log('Auth userId:', userId)
 
     if (!userId) {
       return new NextResponse('Unauthorized - No user ID', { status: 401 })
@@ -19,11 +28,17 @@ export async function POST(request: NextRequest) {
     //   return new NextResponse('Unauthorized - Not a teacher', { status: 401 })
     // }
 
+    const body = await request.json()
+    console.log('Request body:', body)
+    const { title } = body
+
     if (!title) {
       return new NextResponse('Title is required', { status: 400 })
     }
 
     try {
+      console.log('Attempting to create course with:', { title, userId })
+
       const course = await db.course.create({
         data: {
           title,
@@ -31,12 +46,15 @@ export async function POST(request: NextRequest) {
         },
       })
 
+      console.log('Course created successfully:', course)
       return NextResponse.json(course)
     } catch (dbError) {
       console.error('[COURSES_POST_DB_ERROR]', dbError)
       
       if (dbError instanceof Prisma.PrismaClientKnownRequestError) {
-        // Handle specific Prisma errors
+        console.error('Prisma error code:', dbError.code)
+        console.error('Prisma error message:', dbError.message)
+        
         if (dbError.code === 'P2002') {
           return new NextResponse('A course with this title already exists', { status: 400 })
         }
@@ -45,18 +63,18 @@ export async function POST(request: NextRequest) {
         }
       }
       
-      // Check if it's a connection error
       if (dbError instanceof Prisma.PrismaClientInitializationError) {
         console.error('Database connection error:', dbError.message)
         return new NextResponse('Database connection error', { status: 500 })
       }
 
-      throw dbError // Re-throw to be caught by outer catch
+      throw dbError
+    } finally {
+      await db.$disconnect()
     }
   } catch (error) {
     console.error('[COURSES_POST_ERROR]', error)
     
-    // Check if it's a JSON parsing error
     if (error instanceof SyntaxError) {
       return new NextResponse('Invalid request body', { status: 400 })
     }

@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { CircleDollarSign, File, LayoutDashboard, ListChecks } from 'lucide-react'
+import { CircleDollarSign, File, LayoutDashboard, ListChecks, Sparkles } from 'lucide-react'
 
 import { db } from '@/lib/db'
 import { IconBadge } from '@/components/icon-badge'
@@ -15,13 +15,12 @@ import { Banner } from '@/components/banner'
 import Actions from './_components/actions'
 
 type CourseIdPageProps = {
-  params: Promise<{
+  params: {
     courseId: string
-  }>
+  }
 }
 
 const CourseIdPage = async ({ params }: CourseIdPageProps) => {
-  const resolvedParams = await params
   const { userId } = await auth()
 
   if (!userId) {
@@ -29,7 +28,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   }
 
   const course = await db.course.findUnique({
-    where: { id: resolvedParams.courseId, createdById: userId },
+    where: { id: params.courseId, createdById: userId },
     include: { attachments: { orderBy: { createdAt: 'desc' } }, chapters: { orderBy: { position: 'asc' } } },
   })
 
@@ -61,52 +60,87 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
 
   return (
     <>
-      {!course.isPublished && <Banner label="This course is unpublished. It will not be visible to the students." />}
-      <div className="p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-y-2">
-            <h1 className="text-2xl font-medium">Course setup</h1>
-            <span className="text-sm text-slate-700">Complete all fields {completionText}</span>
+      {!course.isPublished && (
+        <Banner 
+          label="This course is unpublished. It will not be visible to the students." 
+          variant="warning"
+        />
+      )}
+      <div className="space-y-8 p-8">
+        {/* Welcome Section */}
+        <div className="flex flex-col space-y-4">
+          <div className="flex items-center gap-3">
+            <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+              Course Setup 🎯
+            </h1>
+            <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
           </div>
-          <Actions disabled={!isComplete} courseId={resolvedParams.courseId} isPublished={course.isPublished} />
+          <div className="flex items-center justify-between">
+            <p className="text-lg text-muted-foreground">
+              Complete all fields to publish your course {completionText}
+            </p>
+            <Actions disabled={!isComplete} courseId={params.courseId} isPublished={course.isPublished} />
+          </div>
         </div>
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div>
-            <div className="flex items-center gap-x-2">
-              <IconBadge icon={LayoutDashboard} />
-              <h2 className="text-xl">Customize your course</h2>
+
+        {/* Course Setup Grid */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {/* Left Column */}
+          <div className="space-y-8">
+            <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
+              <div className="flex items-center gap-x-2 mb-8">
+                <IconBadge icon={LayoutDashboard} />
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                  Customize Your Course
+                </h2>
+              </div>
+              <div className="space-y-6">
+                <TitleForm initialData={course} courseId={course.id} />
+                <DescriptionForm initialData={course} courseId={course.id} />
+                <ImageForm initialData={course} courseId={course.id} />
+                <CategoryForm
+                  initialData={course}
+                  courseId={course.id}
+                  options={categories.map((category) => ({
+                    label: category.name,
+                    value: category.id,
+                  }))}
+                />
+              </div>
             </div>
-            <TitleForm initialData={course} courseId={course.id} />
-            <DescriptionForm initialData={course} courseId={course.id} />
-            <ImageForm initialData={course} courseId={course.id} />
-            <CategoryForm
-              initialData={course}
-              courseId={course.id}
-              options={categories.map((category) => ({
-                label: category.name,
-                value: category.id,
-              }))}
-            />
           </div>
-          <div className="space-y-6">
-            <div>
-              <div className="flex items-center gap-x-2">
+
+          {/* Right Column */}
+          <div className="space-y-8">
+            {/* Chapters Section */}
+            <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
+              <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={ListChecks} />
-                <h2 className="text-xl">Course chapters</h2>
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                  Course Chapters
+                </h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} />
             </div>
-            <div>
-              <div className="flex items-center gap-x-2">
+
+            {/* Price Section */}
+            <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
+              <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={CircleDollarSign} />
-                <h2 className="text-xl">Sell your course</h2>
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                  Sell Your Course
+                </h2>
               </div>
               <PriceForm initialData={course} courseId={course.id} />
             </div>
-            <div>
-              <div className="flex items-center gap-x-2">
+
+            {/* Resources Section */}
+            <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
+              <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={File} />
-                <h2 className="text-xl">Resources & Attachments</h2>
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                  Resources & Attachments
+                </h2>
               </div>
               <AttachmentForm initialData={course} courseId={course.id} />
             </div>
