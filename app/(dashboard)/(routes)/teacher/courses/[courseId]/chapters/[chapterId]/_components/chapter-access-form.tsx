@@ -52,10 +52,10 @@ export const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterA
   }
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
-      <div className="flex items-center justify-between font-medium">
+    <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Chapter access
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button onClick={toggleEdit} variant="ghost" className="dark:text-slate-400 dark:hover:bg-slate-700">
           {isEditing ? (
             <>Cancel</>
           ) : (
@@ -67,8 +67,15 @@ export const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterA
         </Button>
       </div>
       {!isEditing && (
-        <p className={cn('mt-2 text-sm', !initialData.isFree && 'italic text-slate-500')}>
-          {initialData.isFree ? <>This chapter is free for preview.</> : <>This chapter is not free.</>}
+        <p className={cn(
+          'mt-2 text-sm',
+          !initialData.isFree && 'italic text-slate-500 dark:text-slate-400'
+        )}>
+          {initialData.isFree ? (
+            <>This chapter is free for preview.</>
+          ) : (
+            <>This chapter is not free.</>
+          )}
         </p>
       )}
       {isEditing && (
@@ -78,18 +85,28 @@ export const ChapterAccessForm = ({ initialData, courseId, chapterId }: ChapterA
               control={form.control}
               name="isFree"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 dark:border-slate-700">
                   <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    <Checkbox 
+                      checked={field.value} 
+                      onCheckedChange={field.onChange}
+                      className="dark:border-slate-700"
+                    />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormDescription>Check this box if you want to make this chapter free for preview</FormDescription>
+                    <FormDescription className="dark:text-slate-400">
+                      Check this box if you want to make this chapter free for preview
+                    </FormDescription>
                   </div>
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit">
+              <Button 
+                disabled={!isValid || isSubmitting} 
+                type="submit"
+                className="dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300"
+              >
                 Save
               </Button>
             </div>

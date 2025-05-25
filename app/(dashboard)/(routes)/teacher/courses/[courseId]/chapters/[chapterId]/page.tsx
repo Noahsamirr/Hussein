@@ -61,15 +61,17 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
           <div className="w-full">
             <Link
               href={`/teacher/courses/${resolvedParams.courseId}`}
-              className="mb-6 flex items-center text-sm transition hover:opacity-75"
+              className="mb-6 flex items-center text-sm transition hover:opacity-75 dark:text-slate-400 dark:hover:text-slate-200"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to course setup
             </Link>
             <div className="flex w-full items-center justify-between">
               <div className="flex flex-col gap-y-2">
-                <h1 className="text-2xl font-medium">Chapter Creation</h1>
-                <span className="text-sm text-slate-700">Complete all fields {completionText}</span>
+                <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400">
+                  Chapter Creation
+                </h1>
+                <span className="text-sm text-slate-700 dark:text-slate-400">Complete all fields {completionText}</span>
               </div>
               <ChapterActions
                 disabled={!isComplete}
@@ -82,10 +84,12 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
         </div>
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-4">
-            <div>
-              <div className="flex items-center gap-x-2">
+            <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
+              <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-xl">Customize your chapter</h2>
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400">
+                  Customize your chapter
+                </h2>
               </div>
               <ChapterTitleForm
                 initialData={chapter}
@@ -98,10 +102,12 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
                 chapterId={resolvedParams.chapterId}
               />
             </div>
-            <div>
-              <div className="flex items-center gap-x-2">
+            <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
+              <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={Eye} />
-                <h2 className="text-xl">Access Settings</h2>
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400">
+                  Access Settings
+                </h2>
               </div>
               <ChapterAccessForm
                 initialData={chapter}
@@ -110,10 +116,12 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
               />
             </div>
           </div>
-          <div>
-            <div className="flex items-center gap-x-2">
+          <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
+            <div className="flex items-center gap-x-2 mb-8">
               <IconBadge icon={Video} />
-              <h2 className="text-xl">Add a video</h2>
+              <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400">
+                Add a video
+              </h2>
             </div>
             <ChapterVideoForm
               initialData={chapter}

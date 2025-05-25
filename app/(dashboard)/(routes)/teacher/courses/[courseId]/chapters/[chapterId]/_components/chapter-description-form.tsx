@@ -54,10 +54,10 @@ export const ChapterDescriptionForm = ({ initialData, courseId, chapterId }: Cha
   }
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
-      <div className="flex items-center justify-between font-medium">
+    <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Chapter description
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button onClick={toggleEdit} variant="ghost" className="dark:text-slate-400 dark:hover:bg-slate-700">
           {isEditing ? (
             <>Cancel</>
           ) : (
@@ -69,7 +69,10 @@ export const ChapterDescriptionForm = ({ initialData, courseId, chapterId }: Cha
         </Button>
       </div>
       {!isEditing && (
-        <div className={cn('mt-2 text-sm', !initialData.description && 'italic text-slate-500')}>
+        <div className={cn(
+          'mt-2 text-sm',
+          !initialData.description && 'italic text-slate-500 dark:text-slate-400'
+        )}>
           {!initialData.description && 'No description'}
           {initialData.description && <Preview value={initialData.description} />}
         </div>
@@ -85,12 +88,16 @@ export const ChapterDescriptionForm = ({ initialData, courseId, chapterId }: Cha
                   <FormControl>
                     <Editor {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="dark:text-red-400" />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit">
+              <Button 
+                disabled={!isValid || isSubmitting} 
+                type="submit"
+                className="dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300"
+              >
                 Save
               </Button>
             </div>

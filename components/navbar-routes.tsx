@@ -1,8 +1,8 @@
 'use client'
 
-import { UserButton, useAuth } from '@clerk/nextjs'
+import { useAuth } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
-import { LogOut, BookOpen, Search } from 'lucide-react'
+import { LogOut, BookOpen, Search, Home } from 'lucide-react'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
@@ -43,7 +43,14 @@ export const NavbarRoutes = () => {
             </Button>
           </Link>
         ) : null}
-        {userId && <UserButton afterSignOutUrl="/" />}
+        {userId && (
+          <Link href="/">
+            <Button size="sm" variant="ghost" className="hover:bg-slate-200 dark:hover:bg-slate-800">
+              <Home className="h-4 w-4 mr-2" />
+              Home
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   )

@@ -41,10 +41,10 @@ export const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVi
   }
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
-      <div className="flex items-center justify-between font-medium">
+    <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
+      <div className="flex items-center justify-between font-medium dark:text-slate-200">
         Chapter video
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button onClick={toggleEdit} variant="ghost" className="dark:text-slate-400 dark:hover:bg-slate-700">
           {isEditing && <>Cancel</>}
           {!isEditing && !initialData.videoUrl && (
             <>
@@ -62,8 +62,8 @@ export const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVi
       </div>
       {!isEditing &&
         (!initialData.videoUrl ? (
-          <div className="flex h-60 items-center justify-center rounded-md bg-slate-200">
-            <Video className="h-10 w-10 text-slate-500" />
+          <div className="flex h-60 items-center justify-center rounded-md bg-slate-200 dark:bg-slate-700">
+            <Video className="h-10 w-10 text-slate-500 dark:text-slate-400" />
           </div>
         ) : (
           <div className="relative mt-2 aspect-video">
@@ -80,11 +80,13 @@ export const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVi
               }
             }}
           />
-          <div className="mt-4 text-xs text-muted-foreground">Upload this chapter&apos;s video</div>
+          <div className="mt-4 text-xs text-muted-foreground dark:text-slate-400">
+            Upload this chapter&apos;s video
+          </div>
         </div>
       )}
       {initialData.videoUrl && !isEditing && (
-        <div className="mt-2 text-xs text-muted-foreground">
+        <div className="mt-2 text-xs text-muted-foreground dark:text-slate-400">
           Videos can take a few minutes to process. Refresh the page if video does not appear.
         </div>
       )}
