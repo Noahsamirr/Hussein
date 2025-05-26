@@ -120,8 +120,8 @@ export const CourseNotes = ({
                   <Trash2 className="h-4 w-4 text-red-500" />
                 </Button>
               </div>
-              <p className="text-sm whitespace-pre-wrap">
-                {note.content}
+              <p className="text-sm text-muted-foreground">
+                &ldquo;{note.content}&rdquo;
               </p>
             </div>
           ))

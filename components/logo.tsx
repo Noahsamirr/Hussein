@@ -11,16 +11,16 @@ const Logo = () => {
 
   if (isSignedIn && isDashboard) {
     return (
-      <div className="flex items-center gap-x-2">
+      <div className="flex items-center gap-x-4">
         <UserButton 
           afterSignOutUrl="/"
           appearance={{
             elements: {
-              avatarBox: "h-8 w-8"
+              avatarBox: "h-20 w-20 rounded-full border-8 border-blue-900 dark:border-blue-400 shadow-lg"
             }
           }}
         />
-        <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
+        <span className="text-lg font-bold text-blue-900 dark:text-blue-100">
           {user?.firstName || user?.username || 'User'}
         </span>
       </div>

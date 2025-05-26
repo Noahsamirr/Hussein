@@ -1,26 +1,23 @@
 'use client'
 
-import axios from 'axios'
-import { CheckCircle, XCircle } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import toast from 'react-hot-toast'
-
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { CheckCircle, Loader2 } from 'lucide-react'
 import { useConfettiStore } from '@/hooks/use-confetti'
 
 interface CourseProgressButtonProps {
   chapterId: string
   courseId: string
-  isCompleted?: boolean
   nextChapterId?: string
+  isCompleted?: boolean
 }
 
 export const CourseProgressButton = ({
   chapterId,
   courseId,
-  isCompleted,
   nextChapterId,
+  isCompleted,
 }: CourseProgressButtonProps) => {
   const router = useRouter()
   const confetti = useConfettiStore()
@@ -30,9 +27,17 @@ export const CourseProgressButton = ({
     try {
       setIsLoading(true)
 
-      await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
-        isCompleted: !isCompleted,
+      const response = await fetch(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ isCompleted: !isCompleted }),
       })
+
+      if (!response.ok) {
+        throw new Error('Failed to update progress')
+      }
 
       if (!isCompleted && !nextChapterId) {
         confetti.onOpen()
@@ -42,27 +47,37 @@ export const CourseProgressButton = ({
         router.push(`/courses/${courseId}/chapters/${nextChapterId}`)
       }
 
-      toast.success('Progress updated')
       router.refresh()
-    } catch {
-      toast.error('Something went wrong')
+    } catch (error) {
+      // Handle error silently or show a toast notification
+      router.refresh()
     } finally {
       setIsLoading(false)
     }
   }
 
-  const Icon = isCompleted ? XCircle : CheckCircle
-
   return (
     <Button
       onClick={onClick}
       disabled={isLoading}
-      type="button"
-      variant={isCompleted ? 'outline' : 'success'}
-      className="w-full md:w-auto"
+      variant={isCompleted ? 'outline' : 'default'}
+      className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700"
     >
-      {isCompleted ? 'Not completed' : 'Mark as complete'}
-      <Icon className="ml-2 h-4 w-4" />
+      {isCompleted ? (
+        <>
+          <CheckCircle className="h-4 w-4 mr-2" />
+          Completed
+        </>
+      ) : (
+        <>
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+          ) : (
+            <CheckCircle className="h-4 w-4 mr-2" />
+          )}
+          Mark as complete
+        </>
+      )}
     </Button>
   )
 }

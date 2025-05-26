@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Clock, Users, Award } from 'lucide-react'
+import Image from 'next/image'
 
 const courses = [
   {
@@ -59,11 +60,12 @@ export const CourseSection = () => {
               key={course.title}
               className="group relative rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
             >
-              <div className="aspect-video relative mb-4 rounded-lg overflow-hidden">
-                <img
+              <div className="relative w-full aspect-video rounded-md overflow-hidden">
+                <Image
                   src={course.image}
                   alt={course.title}
-                  className="object-cover w-full h-full transition-transform group-hover:scale-105"
+                  fill
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-4 left-4">

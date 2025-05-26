@@ -28,7 +28,7 @@ export default function CourseEnrollButton({ price, courseId }: CourseEnrollButt
 
   return (
     <Button className="w-full md:w-auto" size="sm" onClick={onClick} disabled={isLoading}>
-      Enroll for {formatPrice(price)}
+      {price === 0 ? 'Enroll for Free' : `Enroll for ${formatPrice(price)}`}
     </Button>
   )
 }

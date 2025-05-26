@@ -9,7 +9,7 @@ type CourseNavbarProps = {
 
 export default function CourseNavbar({ course, progressCount }: CourseNavbarProps) {
   return (
-    <div className="flex h-full items-center border-b bg-white p-4 shadow-sm">
+    <div className="flex h-full items-center border-b bg-white p-4 shadow-sm dark:bg-slate-900 dark:border-slate-700">
       <CourseMobileSidebar course={course} progressCount={progressCount} />
       <NavbarRoutes />
     </div>

@@ -30,14 +30,14 @@ export const NavbarRoutes = () => {
         <ThemeToggle />
         {isTeacherPage || isCoursePage ? (
           <Link href="/">
-            <Button size="sm" variant="ghost" className="hover:bg-slate-200 dark:hover:bg-slate-800">
+            <Button size="sm" variant="ghost" className="text-slate-700 dark:text-sky-400 hover:bg-slate-200 dark:hover:bg-slate-800">
               <LogOut className="h-4 w-4 mr-2" />
               Exit
             </Button>
           </Link>
         ) : isTeacher(userId) ? (
           <Link href="/teacher/courses">
-            <Button size="sm" variant="ghost" className="hover:bg-slate-200 dark:hover:bg-slate-800">
+            <Button size="sm" variant="ghost" className="text-slate-700 dark:text-emerald-400 hover:bg-slate-200 dark:hover:bg-slate-800">
               <BookOpen className="h-4 w-4 mr-2" />
               Teacher mode
             </Button>
@@ -45,7 +45,7 @@ export const NavbarRoutes = () => {
         ) : null}
         {userId && (
           <Link href="/">
-            <Button size="sm" variant="ghost" className="hover:bg-slate-200 dark:hover:bg-slate-800">
+            <Button size="sm" variant="ghost" className="text-slate-700 dark:text-purple-400 hover:bg-slate-200 dark:hover:bg-slate-800">
               <Home className="h-4 w-4 mr-2" />
               Home
             </Button>

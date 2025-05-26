@@ -1,24 +1,28 @@
 // OLD DASHBOARD LAYOUT - DEPRECATED
 // Use app/dashboard.tsx instead
-import { Navbar } from './_components/navbar'
-import Sidebar from './_components/sidebar'
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
+import Sidebar from '@/components/sidebar'
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const { userId } = await auth()
+
+  if (!userId) {
+    return redirect('/')
+  }
+
   return (
-    <div className="h-full bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="fixed inset-y-0 z-50 h-[80px] w-full border-b bg-white/80 backdrop-blur-sm dark:bg-gray-900/80 md:pl-56">
-        <Navbar />
-      </div>
-      <div className="fixed inset-y-0 z-50 hidden h-full w-56 flex-col border-r bg-white/80 backdrop-blur-sm dark:bg-gray-900/80 md:flex">
+    <div className="h-full relative">
+      <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-white dark:bg-slate-950">
         <Sidebar />
       </div>
-      <main className="mx-auto h-full max-w-7xl pt-[80px] px-4 md:pl-60 md:pr-4">
-        <div className="h-full py-6">
-          {children}
-        </div>
+      <main className="md:pl-72">
+        {children}
       </main>
     </div>
   )
 }
-
-export default DashboardLayout

@@ -1,58 +1,69 @@
+import Image from 'next/image'
+import { Card, CardContent } from '@/components/ui/card'
+
 const testimonials = [
   {
-    quote: "Hussein Abdulrahman transformed my career. The courses are well-structured and the instructors are incredibly knowledgeable. I landed my dream job as a web developer within 3 months of completing the bootcamp.",
-    author: "Sarah Johnson",
-    role: "Web Developer",
-    avatar: "/testimonials/sarah.jpg"
+    name: 'Sarah Johnson',
+    role: 'Software Engineer',
+    content: '&ldquo;The courses here have transformed my career. The practical approach and real-world projects helped me land my dream job.&rdquo;',
+    image: '/testimonials/sarah.jpg',
   },
   {
-    quote: "The flexibility of learning at my own pace while having access to expert instructors made all the difference. The certification helped me stand out in job interviews.",
-    author: "Michael Chen",
-    role: "Data Scientist",
-    avatar: "/testimonials/michael.jpg"
-  }
+    name: 'Michael Chen',
+    role: 'Data Scientist',
+    content: '&ldquo;I&apos;ve tried many platforms, but this one stands out. The quality of instruction and community support is unmatched.&rdquo;',
+    image: '/testimonials/michael.jpg',
+  },
+  {
+    name: 'Emily Rodriguez',
+    role: 'UX Designer',
+    content: '&ldquo;The interactive learning experience and personalized feedback have accelerated my growth as a designer. Highly recommended!&rdquo;',
+    image: '/testimonials/emily.jpg',
+  },
 ]
 
 export const Testimonials = () => {
   return (
-    <section className="py-24 bg-white dark:bg-gray-900">
+    <div className="py-12 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-3xl text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-blue-900 dark:text-blue-100 mb-4">
             What Our Students Say
           </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Don't just take our word for it - hear from our successful graduates.
+          <p className="text-lg text-blue-800/80 dark:text-blue-200/80">
+            Join thousands of satisfied learners who have transformed their careers
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.author}
-              className="relative rounded-2xl border bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-800"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.author}
-                  className="h-12 w-12 rounded-full object-cover"
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">
-                    {testimonial.author}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    {testimonial.role}
-                  </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <Card key={index} className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-sm text-blue-800/80 dark:text-blue-200/80">
+                      {testimonial.role}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <p className="text-gray-600 dark:text-gray-300">
-                "{testimonial.quote}"
-              </p>
-            </div>
+                <p className="text-blue-800/80 dark:text-blue-200/80">
+                  {testimonial.content}
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 } 

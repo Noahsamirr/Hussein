@@ -60,7 +60,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400"
+              className="text-4xl md:text-6xl font-bold mb-6 text-blue-900 dark:text-blue-100"
             >
               Transform Your Career with Professional Training
             </motion.h1>
@@ -68,7 +68,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8"
+              className="text-lg md:text-xl text-blue-800/80 dark:text-blue-200/80 mb-8"
             >
               Expert-led courses in accounting and business development to help you achieve your professional goals.
             </motion.p>
@@ -92,9 +92,9 @@ export default function HomePage() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
             whileHover={{ scale: 1.02 }}
-            className="relative mx-auto md:mx-0 w-[500px] h-[500px] rounded-2xl overflow-hidden border-4 border-blue-500/20 dark:border-blue-400/20 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] dark:shadow-[0_20px_50px_rgba(8,_112,_184,_0.3)]"
+            className="relative mx-auto md:mx-0 w-[500px] h-[500px] rounded-full overflow-hidden border-8 border-blue-900/20 dark:border-blue-400/20 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] dark:shadow-[0_20px_50px_rgba(8,_112,_184,_0.3)]"
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/50 to-transparent z-10" />
             <Image 
               src="/hero/photo1.jpg"
               alt="Hussein Abdulrahman"

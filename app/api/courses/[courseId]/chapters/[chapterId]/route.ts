@@ -5,7 +5,10 @@ import { db } from '@/lib/db'
 
 type Params = Promise<{ chapterId: string; courseId: string }>
 
-const { Video } = new Mux(process.env.MUX_TOKEN_ID!, process.env.MUX_TOKEN_SECRET!)
+const muxClient = new Mux({
+  tokenId: process.env.MUX_TOKEN_ID!,
+  tokenSecret: process.env.MUX_TOKEN_SECRET!,
+})
 
 export async function PATCH(req: NextRequest, { params }: { params: Params }) {
   try {
@@ -29,13 +32,13 @@ export async function PATCH(req: NextRequest, { params }: { params: Params }) {
       /** Cleaning up existing data */
       const existingMuxData = await db.muxData.findFirst({ where: { chapterId: resolvedParams.chapterId } })
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId)
+        await muxClient.video.assets.delete(existingMuxData.assetId)
         await db.muxData.delete({ where: { id: existingMuxData.id } })
       }
 
-      const asset = await Video.Assets.create({
-        input: values.videoUrl,
-        playback_policy: 'public',
+      const asset = await muxClient.video.assets.create({
+        inputs: [{ url: values.videoUrl }],
+        playback_policy: ['public'],
         test: false,
       })
 
@@ -79,7 +82,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Params }) {
       const existingMuxData = await db.muxData.findFirst({ where: { chapterId: resolvedParams.chapterId } })
 
       if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId)
+        await muxClient.video.assets.delete(existingMuxData.assetId)
         await db.muxData.delete({ where: { id: existingMuxData.id } })
       }
     }

@@ -25,6 +25,17 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ cou
       return new NextResponse('Already purchased', { status: 400 })
     }
 
+    // If the course is free, create a purchase record directly
+    if (!course.price || course.price === 0) {
+      await db.purchase.create({
+        data: {
+          courseId: course.id,
+          userId: user.id,
+        }
+      })
+      return NextResponse.json({ url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?success=1` })
+    }
+
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [
       {
         quantity: 1,

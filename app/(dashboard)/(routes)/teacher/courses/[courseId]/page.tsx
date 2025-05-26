@@ -90,7 +90,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
               <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                <h2 className="text-2xl font-bold text-blue-900 dark:text-blue-100">
                   Customize Your Course
                 </h2>
               </div>
@@ -116,7 +116,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
               <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={ListChecks} />
-                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                <h2 className="text-2xl font-bold text-blue-900 dark:text-blue-100">
                   Course Chapters
                 </h2>
               </div>
@@ -127,7 +127,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
               <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={CircleDollarSign} />
-                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                <h2 className="text-2xl font-bold text-blue-900 dark:text-blue-100">
                   Sell Your Course
                 </h2>
               </div>
@@ -138,7 +138,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             <div className="rounded-2xl border bg-gradient-to-br from-white/50 to-white/30 p-8 backdrop-blur-sm shadow-lg dark:from-gray-800/50 dark:to-gray-800/30 dark:border-gray-700">
               <div className="flex items-center gap-x-2 mb-8">
                 <IconBadge icon={File} />
-                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+                <h2 className="text-2xl font-bold text-blue-900 dark:text-blue-100">
                   Resources & Attachments
                 </h2>
               </div>

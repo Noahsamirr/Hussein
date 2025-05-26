@@ -7,7 +7,7 @@ const Sidebar = () => {
       <div className="p-6">
         <Logo />
       </div>
-      <div className="flex w-full flex-col p-3">
+      <div className="flex w-full flex-col space-y-2 p-3">
         <SidebarRoutes />
       </div>
     </div>

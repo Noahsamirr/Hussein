@@ -72,7 +72,7 @@ export const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
           !initialData.price && 'italic text-slate-500',
           'dark:text-slate-400 dark:italic'
         )}>
-          {initialData.price ? formatPrice(initialData.price) : 'No price'}
+          {initialData.price === 0 ? 'Free' : initialData.price ? formatPrice(initialData.price) : 'No price'}
         </p>
       )}
       {isEditing && (
@@ -87,8 +87,9 @@ export const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
                     <Input
                       type="number"
                       step="0.01"
+                      min="0"
                       disabled={isSubmitting}
-                      placeholder="Set a price for your course"
+                      placeholder="Set a price for your course (0 for free)"
                       {...field}
                       value={field.value}
                       className="dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700"

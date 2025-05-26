@@ -35,12 +35,12 @@ const CoursesPage = async () => {
       {/* Welcome Section */}
       <div className="flex flex-col space-y-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+          <h1 className="text-4xl font-bold text-blue-900 dark:text-blue-100">
             Teacher Dashboard 👨‍🏫
           </h1>
           <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
         </div>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg">
           Manage your courses and track student progress
         </p>
       </div>
@@ -53,8 +53,8 @@ const CoursesPage = async () => {
             <span className="text-2xl">📚</span>
           </div>
           <div className="mt-4">
-            <p className="text-lg font-medium">Total Courses</p>
-            <p className="text-2xl font-bold text-blue-500">{courses.length}</p>
+            <p className="text-lg font-medium text-blue-900 dark:text-blue-100">Total Courses</p>
+            <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{courses.length}</p>
           </div>
         </div>
 
@@ -64,8 +64,8 @@ const CoursesPage = async () => {
             <span className="text-2xl">👥</span>
           </div>
           <div className="mt-4">
-            <p className="text-lg font-medium">Total Students</p>
-            <p className="text-2xl font-bold text-green-500">{totalStudents}</p>
+            <p className="text-lg font-medium text-blue-900 dark:text-blue-100">Total Students</p>
+            <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{totalStudents}</p>
           </div>
         </div>
 
@@ -75,8 +75,8 @@ const CoursesPage = async () => {
             <span className="text-2xl">🎓</span>
           </div>
           <div className="mt-4">
-            <p className="text-lg font-medium">Published Courses</p>
-            <p className="text-2xl font-bold text-purple-500">{publishedCourses}</p>
+            <p className="text-lg font-medium text-blue-900 dark:text-blue-100">Published Courses</p>
+            <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{publishedCourses}</p>
           </div>
         </div>
       </div>
