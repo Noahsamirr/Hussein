@@ -15,32 +15,32 @@ export const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm dark:bg-gray-900/80"
+      className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm dark:bg-gray-900/80"
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
           <Logo />
-          <span className="text-xl font-bold text-slate-900 dark:text-slate-100 ml-2">
+          <span className="text-lg font-bold text-slate-900 dark:text-slate-100 ml-2">
             Hussein Abdulrahman
           </span>
         </Link>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           <ThemeToggle />
           {isSignedIn ? (
-            <Button asChild>
+            <Button asChild size="sm">
               <Link href="/dashboard">
                 Dashboard
               </Link>
             </Button>
           ) : (
             <>
-              <Button asChild variant="ghost">
+              <Button asChild variant="ghost" size="sm">
                 <Link href="/sign-in">
                   Sign In
                 </Link>
               </Button>
-              <Button asChild>
+              <Button asChild size="sm">
                 <Link href="/sign-up">
                   Sign Up
                 </Link>

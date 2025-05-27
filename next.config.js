@@ -12,14 +12,14 @@ const nextConfig = {
       "avatars.githubusercontent.com",
       "github.com",
     ],
-  },
+      },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['@mux/mux-player-react', 'lucide-react'],
-  },
+      },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  },
+      },
   swcMinify: true,
 }
 

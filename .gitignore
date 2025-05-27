@@ -38,3 +38,7 @@ next-env.d.ts
 
 # docker compose
 db-data
+
+# IDE
+.idea
+.vscode

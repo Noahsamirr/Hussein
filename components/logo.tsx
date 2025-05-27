@@ -16,11 +16,15 @@ const Logo = () => {
           afterSignOutUrl="/"
           appearance={{
             elements: {
-              avatarBox: "h-20 w-20 rounded-full border-8 border-blue-900 dark:border-blue-400 shadow-lg"
+              avatarBox: "h-20 w-20 rounded-full border-8 border-blue-900 dark:border-blue-400 shadow-lg",
+              userButtonPopoverCard: "bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700",
+              userButtonPopoverActionButton: "text-black dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800",
+              userButtonPopoverActionButtonText: "text-black dark:text-slate-200",
+              userButtonPopoverFooter: "border-t border-slate-200 dark:border-slate-700"
             }
           }}
         />
-        <span className="text-lg font-bold text-blue-900 dark:text-blue-100">
+        <span className="text-lg font-bold text-black dark:text-white">
           {user?.firstName || user?.username || 'User'}
         </span>
       </div>

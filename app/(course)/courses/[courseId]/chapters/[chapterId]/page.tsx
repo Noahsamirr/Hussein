@@ -9,7 +9,8 @@ import { getChapter } from '@/actions/get-chapter'
 import CourseEnrollButton from './_components/course-enroll-button'
 import { Separator } from '@/components/ui/separator'
 import { CourseProgressButton } from './_components/course-progress-button'
-import { Sparkles } from 'lucide-react'
+import { Sparkles, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 type Params = Promise<{
   courseId: string
@@ -46,6 +47,13 @@ export default async function ChapterDetails({ params }: ChapterDetailsProps) {
 
       <div className="mx-auto flex max-w-4xl flex-col pb-20">
         <div className="p-4">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-2 mb-4 text-sm text-blue-700 dark:text-blue-200 hover:underline hover:text-blue-900 dark:hover:text-white transition"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Dashboard
+          </Link>
           <VideoPlayer
             chapterId={chapter.id}
             title={chapter.title}
@@ -87,17 +95,17 @@ export default async function ChapterDetails({ params }: ChapterDetailsProps) {
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">Course Materials</h3>
                 <div className="grid gap-4">
-                  {attachments.map((attachment) => (
-                    <a
+                {attachments.map((attachment) => (
+                  <a
                       className="flex w-full items-center rounded-lg border bg-gradient-to-br from-sky-100 to-sky-50 p-4 text-sky-700 hover:from-sky-200 hover:to-sky-100 transition-all dark:from-sky-900/50 dark:to-sky-800/50 dark:text-sky-300 dark:hover:from-sky-900/70 dark:hover:to-sky-800/70"
-                      key={attachment.id}
-                      target="_blank"
-                      href={attachment.url}
-                      rel="noreferrer"
-                    >
-                      {attachment.name}
-                    </a>
-                  ))}
+                    key={attachment.id}
+                    target="_blank"
+                    href={attachment.url}
+                    rel="noreferrer"
+                  >
+                    {attachment.name}
+                  </a>
+                ))}
                 </div>
               </div>
             </>

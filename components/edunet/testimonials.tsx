@@ -38,27 +38,27 @@ export const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
               <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-4">
+              <div className="flex items-center gap-4 mb-4">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden">
                     <Image
                       src={testimonial.image}
                       alt={testimonial.name}
                       fill
                       className="object-cover"
-                    />
+                />
                   </div>
-                  <div>
+                <div>
                     <h3 className="font-semibold text-blue-900 dark:text-blue-100">
                       {testimonial.name}
-                    </h3>
+                  </h3>
                     <p className="text-sm text-blue-800/80 dark:text-blue-200/80">
-                      {testimonial.role}
-                    </p>
-                  </div>
+                    {testimonial.role}
+                  </p>
                 </div>
+              </div>
                 <p className="text-blue-800/80 dark:text-blue-200/80">
                   {testimonial.content}
-                </p>
+              </p>
               </CardContent>
             </Card>
           ))}

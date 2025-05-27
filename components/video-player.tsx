@@ -85,14 +85,14 @@ export const VideoPlayer = ({
         </div>
       )}
       {!isLocked && (
-        <MuxPlayer
+      <MuxPlayer
           title={title}
           className={cn(!isReady && 'hidden')}
           onCanPlay={() => setIsReady(true)}
           onEnded={onEnd}
           autoPlay
-          playbackId={playbackId}
-        />
+        playbackId={playbackId}
+      />
       )}
       <Button
         onClick={() => setShowNotes(!showNotes)}

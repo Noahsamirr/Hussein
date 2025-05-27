@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation'
 import { CheckCircle, Clock, GraduationCap, BarChart, Sparkles, Rocket, Target } from 'lucide-react'
 import { auth } from '@clerk/nextjs/server'
+import { currentUser } from '@clerk/nextjs/server'
 import { db } from '@/lib/db'
 import { CoursesList } from '@/components/courses-list'
 import { InfoCard } from '@/components/info-card'
@@ -32,8 +33,9 @@ interface Course {
 
 export default async function DashboardPage() {
   const { userId } = await auth()
+  const user = await currentUser()
 
-  if (!userId) {
+  if (!userId || !user) {
     return redirect('/')
   }
 
@@ -70,7 +72,7 @@ export default async function DashboardPage() {
     ).length
     return totalChapters > 0 && totalChapters !== completedChapters
   })
-
+  
   // Calculate completion percentages
   const totalCourses = completedCourses.length + inProgressCourses.length
   const completionRate = totalCourses ? (completedCourses.length / totalCourses) * 100 : 0
@@ -91,7 +93,7 @@ export default async function DashboardPage() {
       <div className="flex flex-col space-y-4">
         <div className="flex items-center gap-3">
           <h1 className="text-4xl font-bold text-blue-900 dark:text-blue-100">
-            Welcome Back! 👋
+            Welcome Back, {user.firstName || 'User'}! 👋
           </h1>
           <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
         </div>
@@ -102,16 +104,16 @@ export default async function DashboardPage() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <InfoCard
+        <InfoCard 
           icon={Clock}
-          label="In Progress"
+          label="In Progress" 
           numberOfItems={inProgressCourses.length}
           variant="default"
         />
-        <InfoCard
-          icon={CheckCircle}
-          label="Completed"
-          numberOfItems={completedCourses.length}
+        <InfoCard 
+          icon={CheckCircle} 
+          label="Completed" 
+          numberOfItems={completedCourses.length} 
           variant="success"
         />
       </div>

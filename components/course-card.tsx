@@ -33,7 +33,15 @@ export const CourseCard = ({
   return (
     <div
       onClick={onClick}
-      className="group relative rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800 cursor-pointer"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick()
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      className="group relative rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      aria-label={`View course: ${title}`}
     >
       <div className="relative w-full aspect-video rounded-md overflow-hidden">
         <Image

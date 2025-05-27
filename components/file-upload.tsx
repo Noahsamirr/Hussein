@@ -12,14 +12,14 @@ interface FileUploadProps {
 export const FileUpload = ({ onChange, endpoint }: FileUploadProps) => {
   return (
     <div className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg p-4">
-      <UploadDropzone
-        endpoint={endpoint}
-        onClientUploadComplete={(res) => {
-          onChange(res?.[0].url)
-        }}
-        onUploadError={(error: Error) => {
-          toast.error(`${error?.message}`)
-        }}
+    <UploadDropzone
+      endpoint={endpoint}
+      onClientUploadComplete={(res) => {
+        onChange(res?.[0].url)
+      }}
+      onUploadError={(error: Error) => {
+        toast.error(`${error?.message}`)
+      }}
         appearance={{
           container: "border-0",
           allowedContent: "text-slate-500 dark:text-slate-400",
@@ -27,7 +27,7 @@ export const FileUpload = ({ onChange, endpoint }: FileUploadProps) => {
           label: "text-slate-900 dark:text-slate-200 font-medium",
           uploadIcon: "text-slate-500 dark:text-slate-400",
         }}
-      />
+    />
     </div>
   )
 }
