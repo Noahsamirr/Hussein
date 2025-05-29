@@ -39,11 +39,11 @@ export default async function ChapterDetails({ params }: ChapterDetailsProps) {
   const completedOnEnd = !!purchase && !userProgress?.isCompleted
 
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       {userProgress?.isCompleted ? <Banner label="You already completed this chapter" variant="success" /> : null}
       {isLocked ? <Banner label="You need to purchase this course to watch this chapter" /> : null}
 
-      <div className="mx-auto flex max-w-4xl flex-col pb-20">
+      <div className="mx-auto flex max-w-4xl flex-col">
         <div className="p-4">
           <VideoPlayer
             chapterId={chapter.id}
@@ -56,9 +56,11 @@ export default async function ChapterDetails({ params }: ChapterDetailsProps) {
           />
         </div>
 
-        <div>
+        <div className="rounded-lg border bg-card p-4 shadow-sm">
           <div className="flex flex-col items-center justify-between p-4 md:flex-row">
-            <h2 className="mb-2 text-2xl font-semibold">{chapter.title}</h2>
+            <h2 className="mb-2 text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400">
+              {chapter.title}
+            </h2>
             {purchase ? (
               <CourseProgressButton
                 chapterId={resolvedParams.chapterId}
@@ -71,19 +73,19 @@ export default async function ChapterDetails({ params }: ChapterDetailsProps) {
             )}
           </div>
 
-          <Separator />
+          <Separator className="my-4" />
 
-          <div>
+          <div className="prose prose-slate dark:prose-invert max-w-none">
             <Preview value={chapter.description!} />
           </div>
 
           {attachments.length ? (
             <>
-              <Separator />
-              <div className="p-4">
+              <Separator className="my-4" />
+              <div className="space-y-2">
                 {attachments.map((attachment) => (
                   <a
-                    className="flex w-full items-center rounded-md border bg-sky-200 p-3 text-sky-700 hover:underline"
+                    className="flex w-full items-center rounded-md border bg-sky-200 p-3 text-sky-700 hover:underline dark:bg-sky-900 dark:text-sky-200"
                     key={attachment.id}
                     target="_blank"
                     href={attachment.url}

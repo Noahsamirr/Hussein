@@ -4,7 +4,10 @@ import Mux from '@mux/mux-node'
 import { db } from '@/lib/db'
 import { isTeacher } from '@/lib/teacher'
 
-const { Video } = new Mux(process.env.MUX_TOKEN_ID!, process.env.MUX_TOKEN_SECRET!)
+const mux = new Mux({
+  tokenId: process.env.MUX_TOKEN_ID!,
+  tokenSecret: process.env.MUX_TOKEN_SECRET!,
+})
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ courseId: string }> }) {
   try {
@@ -31,7 +34,9 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ course
       },
     })
 
-    return NextResponse.json(course)
+    const response = NextResponse.json(course)
+    response.headers.set('Cache-Control', 'no-store, must-revalidate')
+    return response
   } catch {
     return new NextResponse('Internal Error', { status: 500 })
   }
@@ -60,13 +65,15 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ c
     /** Removing mux data for all chapters */
     for (const chapter of course.chapters) {
       if (chapter.muxData) {
-        await Video.Assets.del(chapter.muxData.assetId)
+        await mux.video.assets.delete(chapter.muxData.assetId)
       }
     }
 
     const deletedCourse = await db.course.delete({ where: { id: courseId } })
 
-    return NextResponse.json(deletedCourse)
+    const response = NextResponse.json(deletedCourse)
+    response.headers.set('Cache-Control', 'no-store, must-revalidate')
+    return response
   } catch {
     return new NextResponse('Internal server exception', { status: 500 })
   }

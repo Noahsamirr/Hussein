@@ -92,9 +92,9 @@ export default function HomePage() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
             whileHover={{ scale: 1.02 }}
-            className="relative mx-auto md:mx-0 w-[500px] h-[500px] rounded-2xl overflow-hidden border-4 border-blue-500/20 dark:border-blue-400/20 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] dark:shadow-[0_20px_50px_rgba(8,_112,_184,_0.3)]"
+            className="relative mx-auto md:mx-0 w-[400px] h-[400px] rounded-full overflow-hidden border-4 border-[#2d3446] shadow-[0_0_30px_rgba(45,52,70,0.5)] dark:shadow-[0_0_30px_rgba(45,52,70,0.3)]"
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 rounded-full" />
             <Image 
               src="/hero/photo1.jpg"
               alt="Hussein Abdulrahman"
@@ -103,6 +103,7 @@ export default function HomePage() {
               className="transition-transform duration-700 hover:scale-110"
               priority
             />
+            <div className="absolute inset-0 rounded-full border-4 border-[#f5f5f0]/20 animate-pulse" />
           </motion.div>
         </div>
       </section>

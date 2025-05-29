@@ -1,24 +1,35 @@
 // OLD DASHBOARD LAYOUT - DEPRECATED
 // Use app/dashboard.tsx instead
-import { Navbar } from './_components/navbar'
-import Sidebar from './_components/sidebar'
+import React from 'react'
+import Sidebar from '@/components/sidebar'
+import { MobileSidebar } from '@/components/mobile-sidebar'
+import { NavbarRoutes } from '@/components/navbar-routes'
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-full bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="fixed inset-y-0 z-50 h-[80px] w-full border-b bg-white/80 backdrop-blur-sm dark:bg-gray-900/80 md:pl-56">
-        <Navbar />
-      </div>
-      <div className="fixed inset-y-0 z-50 hidden h-full w-56 flex-col border-r bg-white/80 backdrop-blur-sm dark:bg-gray-900/80 md:flex">
+    <div className="flex h-screen">
+      {/* Sidebar for desktop */}
+      <div className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50">
         <Sidebar />
       </div>
-      <main className="mx-auto h-full max-w-7xl pt-[80px] px-4 md:pl-60 md:pr-4">
-        <div className="h-full py-6">
+      {/* Mobile sidebar */}
+      <div className="md:hidden fixed top-0 left-0 z-50">
+        <MobileSidebar />
+      </div>
+      {/* Main content area */}
+      <div className="flex-1 flex flex-col min-h-0 md:pl-64">
+        {/* Navbar at the top */}
+        <nav className="h-16 flex items-center px-4 border-b bg-[#1a1f2e] border-[#2d3446] shadow-lg">
+          <NavbarRoutes />
+        </nav>
+        {/* Page content */}
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-[#f5f5f0] dark:bg-[#1a1f2e]">
           {children}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   )
 }
 
 export default DashboardLayout
+

@@ -35,8 +35,8 @@ export default async function CourseLayout({ children, params }: CourseLayoutPro
   const progressCount = await getProgress(userId, course.id)
 
   return (
-    <div className="h-full">
-      <div className="fixed inset-y-0 z-50 h-20 w-full md:pl-80">
+    <div className="h-full relative">
+      <div className="fixed inset-y-0 z-50 h-16 w-full md:pl-80">
         <CourseNavbar course={course} progressCount={progressCount} />
       </div>
 
@@ -44,7 +44,11 @@ export default async function CourseLayout({ children, params }: CourseLayoutPro
         <CourseSidebar course={course} progressCount={progressCount} />
       </div>
 
-      <main className="h-full pt-20 md:pl-80">{children}</main>
+      <main className="h-full pt-16 md:pl-80">
+        <div className="container mx-auto px-4">
+          {children}
+        </div>
+      </main>
     </div>
   )
 }

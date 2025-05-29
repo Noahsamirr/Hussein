@@ -4,8 +4,6 @@ import * as z from 'zod'
 import axios from 'axios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Pencil } from 'lucide-react'
-import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
@@ -26,10 +24,6 @@ const formSchema = z.object({
 })
 
 export const ChapterTitleForm = ({ initialData, courseId, chapterId }: ChapterTitleFormProps) => {
-  const [isEditing, setIsEditing] = useState(false)
-
-  const toggleEdit = () => setIsEditing((current) => !current)
-
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,7 +37,6 @@ export const ChapterTitleForm = ({ initialData, courseId, chapterId }: ChapterTi
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values)
       toast.success('Chapter updated')
-      toggleEdit()
       router.refresh()
     } catch {
       toast.error('Something went wrong')
@@ -52,52 +45,39 @@ export const ChapterTitleForm = ({ initialData, courseId, chapterId }: ChapterTi
 
   return (
     <div className="mt-6 rounded-md border bg-white p-4 dark:bg-slate-800 dark:border-gray-700">
-      <div className="flex items-center justify-between font-medium dark:text-slate-200">
+      <div className="font-medium dark:text-slate-200 mb-4">
         Chapter title
-        <Button onClick={toggleEdit} variant="ghost" className="dark:text-slate-400 dark:hover:bg-slate-700">
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
-            <>
-              <Pencil className="mr-2 h-4 w-4" />
-              Edit title
-            </>
-          )}
-        </Button>
       </div>
-      {!isEditing && <p className="mt-2 text-sm dark:text-slate-400">{initialData.title}</p>}
-      {isEditing && (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input 
-                      disabled={isSubmitting} 
-                      placeholder="e.g. 'Introduction to the course'" 
-                      {...field} 
-                      className="dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700"
-                    />
-                  </FormControl>
-                  <FormMessage className="dark:text-red-400" />
-                </FormItem>
-              )}
-            />
-            <div className="flex items-center gap-x-2">
-              <Button 
-                disabled={!isValid || isSubmitting} 
-                type="submit"
-                className="dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300"
-              >
-                Save
-              </Button>
-            </div>
-          </form>
-        </Form>
-      )}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input 
+                    disabled={isSubmitting} 
+                    placeholder="e.g. 'Introduction to the course'" 
+                    {...field} 
+                    className="dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700"
+                  />
+                </FormControl>
+                <FormMessage className="dark:text-red-400" />
+              </FormItem>
+            )}
+          />
+          <div className="flex items-center gap-x-2">
+            <Button 
+              disabled={!isValid || isSubmitting} 
+              type="submit"
+              className="dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300"
+            >
+              Save
+            </Button>
+          </div>
+        </form>
+      </Form>
     </div>
   )
 }

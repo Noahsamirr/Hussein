@@ -1,24 +1,44 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: [
+      'uploadthing.com',
+      'utfs.io',
+      'images.unsplash.com',
+      'img.clerk.com',
+      'res.cloudinary.com',
+    ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'utfs.io',
-      },
-      {
-        protocol: 'https',
-        hostname: 'qjmbvb3pin.ufs.sh',
-      },
-      {
-        protocol: 'https',
-        hostname: 'uploadthing.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.uploadthing.com',
+        hostname: '**',
       },
     ],
+  },
+  experimental: {
+    serverActions: true,
+  },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, must-revalidate',
+          },
+        ],
+      },
+    ]
   },
 }
 
